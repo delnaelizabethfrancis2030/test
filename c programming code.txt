@@ -1,0 +1,76 @@
+#include <stdio.h>
+#include <string.h>
+#define MAX 50
+int main() {
+    /* Parallel arrays to store up to 50 equipment records */
+    char name[MAX][50];
+    int qty[MAX];
+    int count = 0;
+    int choice, search_sno, i, found;
+    /* Menu loop repeats until user chooses Exit (4) */
+    do {
+        printf("\n===== LAB EQUIPMENT REGISTER =====\n");
+        printf("1. Add Equipment\n");
+        printf("2. View All Equipment\n");
+        printf("3. Search Equipment by S.No.\n");
+        printf("4. Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+        switch (choice) {
+            case 1:
+                /* Functionality 1: Add equipment (name and quantity) */
+ if (count >= MAX) {
+                    printf("Register is full! Maximum %d records allowed.\n", MAX);
+                } else {
+                    printf("Enter equipment name: ");
+                    scanf(" %49[^\n]", name[count]);
+                    printf("Enter quantity: ");
+                    scanf("%d", &qty[count]);
+                    count++;
+                    printf("Equipment added successfully. Assigned S.No.: %d\n", count);
+                }
+                break;
+            case 2:
+                /* Functionality 2: View all equipment in a table */
+                if (count == 0) {
+                    printf("No equipment records found.\n");
+                } else {
+                    printf("\n%-8s %-30s %-10s\n", "S.No.", "Equipment Name", "Quantity");
+                    printf("--------------------------------------------------\n");
+                    for (i = 0; i < count; i++) {
+                        printf("%-8d %-30s %-10d\n", i + 1, name[i], qty[i]);
+                    }
+                }
+                break;
+ case 3:
+                /* Functionality 3: Search equipment by S.No. */
+                if (count == 0) {
+                    printf("No equipment records available to search.\n");
+                } else {
+                    printf("Enter S.No. to search: ");
+                    scanf("%d", &search_sno);
+                    found = 0;
+                    for (i = 0; i < count; i++) {
+                        if ((i + 1) == search_sno) {
+                            printf("\nEquipment Found:\n");
+                            printf("S.No.          : %d\n", i + 1);
+                            printf("Equipment Name : %s\n", name[i]);
+                            printf("Quantity       : %d\n", qty[i]);
+                            found = 1;
+                            break;
+                        }
+                    }
+                    if (!found) {
+                        printf("Equipment with S.No. %d does not exist.\n", search_sno);
+                    }
+                }
+case 4:
+                /* Exit option */
+                printf("Exiting Lab Equipment Register. Thank you!\n");
+                break;
+            default:
+                printf("Invalid choice! Please enter a number between 1 and 4.\n");
+        }
+    } while (choice != 4);
+    return 0;
+}
